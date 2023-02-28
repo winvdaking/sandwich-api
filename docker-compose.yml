@@ -1,0 +1,179 @@
+version: '3'
+networks:
+  lbs23.net:
+    driver: bridge
+services:
+#####################################################
+# API SERVICES
+#####################################################
+
+#######################################
+###  Order Service : prise de commandes, suivi des commandes
+###  api api.order
+###  database gérée par le service mysql.order (sql)
+###  requêtes HTTP vers api.catalog et api.fidelisation
+#######################################
+
+  # service api.order : api pour la prise de commandes et le suivi de commandes
+  #
+  api.order:
+    image: 'canals/php:latest'
+    environment:
+      - VHOST_HOSTNAME=api.order.local
+      - VHOST_DOCROOT=/var/www/public
+    ports:
+      - '19080:80'
+      - '19043:443'
+    volumes:
+      - './lbs_order_service:/var/www'
+    working_dir: /var/www/
+    networks:
+      - lbs23.net
+    depends_on:
+      - order.db
+
+
+
+  # service sql pour le stockage des commandes -
+  # utilisé par l'api order
+  order.db:
+    image: 'mariadb:latest'
+    command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
+    environment:
+      - MYSQL_ROOT_PASSWORD=order001
+      - MYSQL_USER=order_lbs
+      - MYSQL_PASSWORD=order_lbs
+      - MYSQL_DATABASE=order_lbs
+    ports:
+      - '3307:3306'
+    networks:
+      - lbs23.net
+    volumes:
+      - './lbs_order_service/sql:/var/sql'
+
+  #
+  # service administration des bases sql
+  #
+
+  adminer:
+    image: adminer
+    ports:
+      - '8080:8080'
+    networks:
+      - lbs23.net
+######################################
+###  AUTH Service : service d'authentification JWT
+###  api api.auth : auth, check, refresh de token JWT
+###  utilise sa propre base de données
+######################################
+#  api.auth:
+#    image: 'canals/php:latest'
+#    environment:
+#      - VHOST_HOSTNAME=api.auth.local
+#      - VHOST_DOCROOT=/var/www/pub
+#    ports:
+#      - '19780:80'
+#      - '19743:443'
+#    volumes:
+#      - './lbs_auth_service/public:/var/www/pub'
+#      - './lbs_auth_service/src:/var/www/src'
+#      - './lbs_auth_service/log:/var/log/app'
+#    working_dir: /var/www/src
+#    networks:
+#      lbs.net:
+#        aliases:
+#          - api.auth.local
+#    depends_on:
+#      - mysql.auth
+
+#  mysql.auth:
+#    image: 'mariadb:latest'
+#    command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=authR00t
+#      - MYSQL_USER=auth_lbs
+#      - MYSQL_PASSWORD=auth_lbs
+#      - MYSQL_DATABASE=auth_lbs
+#    ports:
+#      - '3316:3306'
+#    networks:
+#      - lbs.net
+#    volumes:
+#      - './lbs_auth_service/sql:/var/sql'
+
+
+
+
+###########################################################
+#
+#   Service catalogue, réalisé avec le CMS Headless Directus
+#   Service SQL géré par postgres
+#
+###########################################################
+
+#  catalogue.data:
+#    image: postgis/postgis:13-master
+#    volumes:
+#      - ./lbs_catalogue_service/data/database:/var/lib/postgresql/data
+#    networks:
+#      - lbs.net
+#    environment:
+#      POSTGRES_USER: 'catalogue'
+#      POSTGRES_PASSWORD: 'catalogue'
+#      POSTGRES_DB: 'catalogue'
+#
+#  api.catalogue:
+#    image: directus/directus:latest
+#    ports:
+#      - 19055:8055
+#    volumes:
+#      - ./lbs_catalogue_service/uploads:/directus/uploads
+#      - ./lbs_catalogue_service/extensions:/directus/extensions
+#    networks:
+#      - lbs.net
+#    depends_on:
+#      - catalogue.data
+#    environment:
+#      KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
+#      SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
+#
+#      DB_CLIENT: 'pg'
+#      DB_HOST: 'catalogue.data'
+#      DB_PORT: '5432'
+#      DB_DATABASE: 'catalogue'
+#      DB_USER: 'catalogue'
+#      DB_PASSWORD: 'catalogue'
+#
+#      CACHE_ENABLED: 'false'
+#      ADMIN_EMAIL: 'admin@example.com'
+#      ADMIN_PASSWORD: 'd1r3ctu5'
+
+
+
+
+
+#######################################
+###  backoffice : web wrapper html pour la gestion du catalogue
+###  connexion avec l'api catalogue
+#######################################
+#  web.catalogue:
+#    image: 'canals/php:latest'
+#    environment:
+#      - VHOST_HOSTNAME=web.catalogue.local
+#      - VHOST_DOCROOT=/var/www/public
+#    ports:
+#      - '19480:80'
+#      - '19443:443'
+#    volumes:
+#      - './lbs_catalogue_web/public:/var/www/public'
+#      - './lbs_catalogue_web/src:/var/www/src'
+#    working_dir: /var/www/src
+#    networks:
+#      - lbs.net
+#    depends_on:
+#      - api.catalogue
+#
+
+
+
+
