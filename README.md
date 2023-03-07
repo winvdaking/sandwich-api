@@ -24,12 +24,12 @@ Théo
 Dorian
 ----
 
-# url
+## url
 
-### api.order
+- ### api.order
 http://api.order.local:19080/
 
-### adminer
+- ### adminer
 http://api.order.local:8080/
 ## Serveur
 order.db
@@ -38,13 +38,6 @@ order_lbs
 # vHost
 
 sudo nano /etc/hosts
-
-## docker:
-- bon-sandwich-22-23_order.db_1
-- bon-sandwich-22-23_adminer_1
-- bon-sandwich-22-23_api.order_1
-
-
 
 ## CLI:
 
