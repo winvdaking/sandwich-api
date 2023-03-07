@@ -1,5 +1,5 @@
 <?php
-namespace order\models;
+namespace orders\models;
 
 class Item extends \Illuminate\Database\Eloquent\Model{
 

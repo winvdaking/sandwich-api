@@ -1,7 +1,7 @@
 <?php
-namespace order\services\utils;
+namespace orders\services\utils;
 
-use order\models\Order;
+use orders\models\Order;
 
 final class OrderService {
     public function getOrders(){
@@ -26,7 +26,7 @@ final class OrderService {
     }
 
     public function orderUpdate(int $id,array $data):void{
-    $query = Order::update()
+    $query = Order::update();
     }
 
     private function toRow(array $order) : array{
@@ -35,7 +35,7 @@ final class OrderService {
             'nom' => $order['nom'],
             'mail' => $order['mail'],
 
-        ]
+        ];
     }
 
 

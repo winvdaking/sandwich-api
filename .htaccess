@@ -1,17 +1,10 @@
 RewriteEngine On
-#
-# RewriteBase indispensable sur webetu :
 
-#RewriteBase /www/canals5/phox
-
-
-#
 # Pour interdire l'accès aux répertoires contenant du code
-#RewriteRule ^sql(/.*|)$ - [NC,F]
-#RewriteRule ^src(/.*|)$ - [NC,F]
+# RewriteRule ^sql(/.*|)$ - [NC,F]
+# RewriteRule ^src(/.*|)$ - [NC,F]
 
-#
-# réécriture pour slim
+# Réécriture pour slim
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

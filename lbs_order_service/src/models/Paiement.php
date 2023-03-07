@@ -1,5 +1,5 @@
 <?php
-namespace order\models;
+namespace orders\models;
 
 class Paiement extends \Illuminate\Database\Eloquent\Model{
 

@@ -3,16 +3,16 @@ networks:
   lbs23.net:
     driver: bridge
 services:
-#####################################################
-# API SERVICES
-#####################################################
+  #####################################################
+  # API SERVICES
+  #####################################################
 
-#######################################
-###  Order Service : prise de commandes, suivi des commandes
-###  api api.order
-###  database gérée par le service mysql.order (sql)
-###  requêtes HTTP vers api.catalog et api.fidelisation
-#######################################
+  #######################################
+  ###  Order Service : prise de commandes, suivi des commandes
+  ###  api api.order
+  ###  database gérée par le service mysql.order (sql)
+  ###  requêtes HTTP vers api.catalog et api.fidelisation
+  #######################################
 
   # service api.order : api pour la prise de commandes et le suivi de commandes
   #
@@ -20,19 +20,17 @@ services:
     image: 'canals/php:latest'
     environment:
       - VHOST_HOSTNAME=api.order.local
-      - VHOST_DOCROOT=/var/www/public
+      - VHOST_DOCROOT=/var/www/
     ports:
       - '19080:80'
       - '19043:443'
     volumes:
-      - './:/var/www'
+      - '.:/var/www'
     working_dir: /var/www/
     networks:
       - lbs23.net
     depends_on:
       - order.db
-
-
 
   # service sql pour le stockage des commandes -
   # utilisé par l'api order
@@ -61,6 +59,7 @@ services:
       - '8080:8080'
     networks:
       - lbs23.net
+
 ######################################
 ###  AUTH Service : service d'authentification JWT
 ###  api api.auth : auth, check, refresh de token JWT
@@ -173,7 +172,3 @@ services:
 #    depends_on:
 #      - api.catalogue
 #
-
-
-
-

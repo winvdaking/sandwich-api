@@ -1,5 +1,6 @@
 <?php
-namespace order\models;
+namespace orders\models;
+
 class Order extends \Illuminate\Database\Eloquent\Model{
 
     protected  $table = 'commande';

@@ -1,6 +1,9 @@
 <?php
-namespace order\actions\order;
-use order\services\utils\OrderService;
+
+namespace orders\actions\order;
+
+use orders\services\utils\OrderService;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 

@@ -1,10 +1,12 @@
 <?php
-namespace order\actions\order;
-use order\services\utils\OrderService;
+
+namespace orders\actions\order;
+
+use orders\services\utils\OrderService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-final class GetOrdersAction{
+final class GetOrdersAction {
     public function __invoke(Request $request,
                              Response $response , array $args): Response{
         $orderServive = new OrderService();
