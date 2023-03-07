@@ -1,0 +1,8 @@
+addReviewers: true
+reviewers:
+  - TheoPierne
+  - winvdaking
+  - akremjomaa
+  - cassagnebertrand
+numberOfReviewers: 0
+runOnDraft: true

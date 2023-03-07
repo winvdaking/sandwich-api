@@ -1,3 +1,7 @@
 .env
 /vendor
+<<<<<<< HEAD
 /config/config.db.ini
+=======
+/.idea
+>>>>>>> 2a495124f4307c1d77442db36d2f74b557c6a399
