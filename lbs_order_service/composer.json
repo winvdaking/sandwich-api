@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "order\\": "lbs_order_service/src/"
+            "order\\": "./src/"
         }
     }
 }

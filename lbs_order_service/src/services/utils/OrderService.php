@@ -14,7 +14,7 @@ final class OrderService {
         }
     }
 
-    public function getOrdersById(int $id){
+    public function getOrdersById(int $id):array{
         $query = Order::select('id', 'mail as client_mail','nom as client_name', 'created_at as order_date', 'livraison as delivery_date','montant as total_amount')->where('id', '=', $id);
 
         try {
@@ -26,7 +26,7 @@ final class OrderService {
     }
 
     public function orderUpdate(int $id,array $data):void{
-    $query = Order::update()
+    $query = Order::update();
     }
 
     private function toRow(array $order) : array{
@@ -34,8 +34,8 @@ final class OrderService {
             'livraison' => $order['livraison'],
             'nom' => $order['nom'],
             'mail' => $order['mail'],
-
-        ]
+            'montant' => $order['montant'],
+        ];
     }
 
 
