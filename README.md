@@ -9,7 +9,7 @@ Projet Bon Sandwich
 
 ### TODO
 
-- Voir (Trello)[https://trello.com/b/XjXoUlnJ/%F0%9F%A5%AAsandwich-api%F0%9F%A5%AA]
+- Voir [Trello](https://trello.com/b/XjXoUlnJ/%F0%9F%A5%AAsandwich-api%F0%9F%A5%AA)
 
 ## Protocol de release
 

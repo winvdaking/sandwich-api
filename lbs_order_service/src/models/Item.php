@@ -1,5 +1,5 @@
 <?php
-namespace lbs\order\models;
+namespace order\models;
 
 class Item extends \Illuminate\Database\Eloquent\Model{
 
@@ -7,7 +7,7 @@ class Item extends \Illuminate\Database\Eloquent\Model{
     protected  $idColumn = 'id';
     public $timestamps = false;
     public function order(){
-        return $this->belongsTo('lbs\order\models\Order', 'command_id');
+        return $this->belongsTo('order\models\Order', 'command_id');
 
     }
 
