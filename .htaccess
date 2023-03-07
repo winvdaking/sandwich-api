@@ -1,0 +1,11 @@
+RewriteEngine On
+
+# Pour interdire l'accès aux répertoires contenant du code
+# RewriteRule ^sql(/.*|)$ - [NC,F]
+# RewriteRule ^src(/.*|)$ - [NC,F]
+
+# Réécriture pour slim
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]

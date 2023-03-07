@@ -1,5 +1,6 @@
 <?php
-namespace lbs\order\models;
+namespace orders\models;
+
 class Order extends \Illuminate\Database\Eloquent\Model{
 
     protected  $table = 'commande';
@@ -7,7 +8,7 @@ class Order extends \Illuminate\Database\Eloquent\Model{
     public $timestamps = true;
 
     public function items(){
-        return $this->hasMany('lbs\order\models\Item','id');
+        return $this->hasMany('order\models\Item','id');
 
     }
 

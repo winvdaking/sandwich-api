@@ -1,5 +1,7 @@
 <?php
 
+namespace config;
+
 use Slim\App;
 
 return function (App $app) {
