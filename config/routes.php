@@ -12,6 +12,5 @@ return function (App $app) {
     $app->group('/v1', function (RouteCollectorProxy $app) {
         $app->get('/orders[/]', \orders\actions\order\GetOrdersAction::class)->setName('getOrders');
         $app->get('/orders/{id}[/]', \orders\actions\order\GetOrderByIdAction::class)->setName('getOrdersById');
-        $app->get('/test', function(Request $request, Response $response){ return $response; });
     });
 };
