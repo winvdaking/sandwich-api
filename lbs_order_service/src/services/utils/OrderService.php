@@ -3,7 +3,7 @@
 namespace orders\services\utils;
 
 use orders\models\Order;
-use orders\errors\ModelExceptionNotFound;
+use orders\errors\exceptions\OrderExceptionNotFound;
 
 final class OrderService {
 
@@ -13,11 +13,8 @@ final class OrderService {
 
         try {
             return $query->ToArray();
-        }catch (\ModelExceptionNotFound $e) {
-            throw new OrderExceptionNotFound("order $id not found !");
-        }
-        catch (\ErrorException $e) {
-            throw new OrderExceptionNotFound("order $id not found !");
+        }catch (\Throwable $e) {
+            throw new OrderExceptionNotFound("error");
         }
     }
 
@@ -27,17 +24,18 @@ final class OrderService {
 
         try {
             return $query->firstOrFail()->ToArray();
-
-        } catch (\Throwable $o) {
-            throw new \ErrorException("order $o not found !");
+        }catch (\Throwable $e) {
+            throw new OrderExceptionNotFound("order $id not found !");
         }
     }
 
-    public function orderUpdate(int $id,array $data):void{
-    $query = Order::update();
+    public function orderUpdate(int $id,array $data): void
+    {
+        $query = Order::update();
     }
 
-    private function toRow(array $order) : array{
+    private function toRow(array $order): array
+    {
         return [
             'livraison' => $order['livraison'],
             'nom' => $order['nom'],
