@@ -1,20 +1,28 @@
 <?php
+
 namespace orders\services\utils;
 
 use orders\models\Order;
+use orders\errors\ModelExceptionNotFound;
 
 final class OrderService {
-    public function getOrders(){
+
+    public function getOrders(): Array
+    {
         $query = Order::select('id', 'mail as client_mail', 'created_at as order_date', 'montant as total_amount')->get();
 
         try {
             return $query->ToArray();
-        } catch (\Throwable $o) {
-            throw new \ErrorException("orders $o not found !");
+        }catch (\ModelExceptionNotFound $e) {
+            throw new OrderExceptionNotFound("order $id not found !");
+        }
+        catch (\ErrorException $e) {
+            throw new OrderExceptionNotFound("order $id not found !");
         }
     }
 
-    public function getOrdersById(int $id){
+    public function getOrdersById(int $id)
+    {
         $query = Order::select('id', 'mail as client_mail','nom as client_name', 'created_at as order_date', 'livraison as delivery_date','montant as total_amount')->where('id', '=', $id);
 
         try {
