@@ -26,10 +26,10 @@ Dorian
 
 ## url
 
-- ### api.order
+### api.order
 http://api.order.local:19080/
 
-- ### adminer
+### adminer
 http://api.order.local:8080/
 
 ## Serveur
