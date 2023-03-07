@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "sandwich\\": "./src/"
+            "order\\": "lbs_order_service/src/"
         }
     }
 }

@@ -1,8 +1,7 @@
 <?php
-
+use Slim\Factory\AppFactory;
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Slim\Factory\AppFactory;
 
 $config = [
     'driver'    => 'mysql',
