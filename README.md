@@ -31,12 +31,14 @@ http://api.order.local:19080/
 
 - ### adminer
 http://api.order.local:8080/
+
 ## Serveur
 order.db
+
 ## Le reste
 order_lbs
-# vHost
 
+# vHost
 sudo nano /etc/hosts
 
 ## CLI:
