@@ -1,35 +1,41 @@
 <?php
+
 namespace orders\services\utils;
 
 use orders\models\Order;
+use orders\errors\exceptions\OrderExceptionNotFound;
 
 final class OrderService {
-    public function getOrders(){
+
+    public function getOrders(): Array
+    {
         $query = Order::select('id', 'mail as client_mail', 'created_at as order_date', 'montant as total_amount')->get();
 
         try {
-            return $query->ToArray();
-        } catch (\Throwable $o) {
-            throw new \ErrorException("orders $o not found !");
+            return $query->toArray();
+        }catch (\Throwable $e) {
+            throw new OrderExceptionNotFound("orders not found");
         }
     }
 
-    public function getOrdersById(int $id){
+    public function getOrdersById(string $id)
+    {
         $query = Order::select('id', 'mail as client_mail','nom as client_name', 'created_at as order_date', 'livraison as delivery_date','montant as total_amount')->where('id', '=', $id);
 
         try {
-            return $query->firstOrFail()->ToArray();
-
-        } catch (\Throwable $o) {
-            throw new \ErrorException("order $o not found !");
+            return $query->firstOrFail()->toArray();
+        }catch (\Throwable $e) {
+            throw new OrderExceptionNotFound("order $id not found");
         }
     }
 
-    public function orderUpdate(int $id,array $data):void{
-    $query = Order::update();
+    public function orderUpdate(int $id,array $data): void
+    {
+        $query = Order::update();
     }
 
-    private function toRow(array $order) : array{
+    private function toRow(array $order): array
+    {
         return [
             'livraison' => $order['livraison'],
             'nom' => $order['nom'],
@@ -37,6 +43,4 @@ final class OrderService {
 
         ];
     }
-
-
 }
