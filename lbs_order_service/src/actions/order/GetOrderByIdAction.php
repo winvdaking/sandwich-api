@@ -16,7 +16,7 @@ final class GetOrderByIdAction{
             $orderServive = new OrderService();
             $order = $orderServive->getOrdersById($args['id']);
         } catch (\OrderExceptionNotFound $e) {
-            throw new HttpNotFoundException();
+            throw new HttpNotFoundException($rq, $e->getMessage());
         }
 
         $data = [

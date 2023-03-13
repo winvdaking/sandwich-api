@@ -12,20 +12,20 @@ final class OrderService {
         $query = Order::select('id', 'mail as client_mail', 'created_at as order_date', 'montant as total_amount')->get();
 
         try {
-            return $query->ToArray();
+            return $query->toArray();
         }catch (\Throwable $e) {
-            throw new OrderExceptionNotFound("error");
+            throw new OrderExceptionNotFound("orders not found");
         }
     }
 
-    public function getOrdersById(int $id)
+    public function getOrdersById(string $id)
     {
         $query = Order::select('id', 'mail as client_mail','nom as client_name', 'created_at as order_date', 'livraison as delivery_date','montant as total_amount')->where('id', '=', $id);
 
         try {
-            return $query->firstOrFail()->ToArray();
+            return $query->firstOrFail()->toArray();
         }catch (\Throwable $e) {
-            throw new OrderExceptionNotFound("order $id not found !");
+            throw new OrderExceptionNotFound("order $id not found");
         }
     }
 
