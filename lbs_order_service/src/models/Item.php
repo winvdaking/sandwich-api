@@ -1,10 +1,12 @@
 <?php
 namespace order\models;
 
-class Item extends \Illuminate\Database\Eloquent\Model{
+use Illuminate\Database\Eloquent\Model;
+
+class Item extends Model{
 
     protected  $table = 'item';
-    protected  $idColumn = 'id';
+    protected string $idColumn = 'id';
     public $timestamps = false;
     public function order(){
         return $this->belongsTo('order\models\Order', 'command_id');
