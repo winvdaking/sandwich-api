@@ -34,6 +34,11 @@ final class OrderService {
         $query = Order::update();
     }
 
+    public function postOrder(array $data): Order
+    {
+        $order = new Order;
+    }
+
     private function toRow(array $order): array
     {
         return [

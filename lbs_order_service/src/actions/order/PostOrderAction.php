@@ -3,24 +3,24 @@
 namespace orders\actions\order;
 
 use orders\services\utils\OrderService;
-use orders\errors\OrderExceptionNotFound;
-
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-final class GetOrderByIdAction{
+final class PostOrderAction {
 
-    public function __invoke(Request $request, Response $response , array $args): Response
+    public function __invoke(Request $request, Response $response, array $args): Response
     {
+        $params = $request->getParsedBody();
+
         try {
             $orderService = new OrderService();
-            $order = $orderService->getOrdersById($args['id']);
+            $order = $orderService->postOrder($params);
         } catch (\OrderExceptionNotFound $e) {
             throw new HttpNotFoundException($rq, $e->getMessage());
         }
 
         $data = [
-            'type' => 'resource',
+            'type' => 'ressource',
             'order' => $order
         ];
 
