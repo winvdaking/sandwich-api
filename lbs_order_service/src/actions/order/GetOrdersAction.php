@@ -7,18 +7,25 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 final class GetOrdersAction {
-    public function __invoke(Request $request,
-                             Response $response , array $args): Response{
-        $orderServive = new OrderService();
-        $orders = $orderServive->getOrders();
+
+    public function __invoke(Request $request, Response $response, array $args): Response
+    {
+        try {
+            $orderServive = new OrderService();
+            $orders = $orderServive->getOrders();
+        } catch (\OrderExceptionNotFound $e) {
+            throw new HttpNotFoundException($rq, $e->getMessage());
+        }
+
         $data = [
             'type' => 'collection',
             'count' => count($orders),
             'orders' => $orders
         ];
+
         $response = $response->withHeader('Content-type', 'application/json;charset=utf-8')->withStatus(202);
         $response->getBody()->write(json_encode($data));
-        return $response;
 
+        return $response;
     }
 }
