@@ -1,7 +1,9 @@
 <?php
 namespace orders\services\utils;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use orders\models\Order;
+use Slim\Exception\HttpNotFoundException;
 
 final class OrderService {
     public function getOrders(){
@@ -26,7 +28,20 @@ final class OrderService {
     }
 
     public function orderUpdate(int $id,array $data):void{
-    $query = Order::update();
+
+        try {
+            $order = Order::find($id)->firstOrFail();
+        }catch (ModelNotFoundException $e){
+            //Todo implementer la bone Exception {OrderExceptionNotFound()}
+            throw new \ErrorException($e->getMessage());
+        }
+
+
+        $order->update([
+            'client_name' => $data['client_name'],
+            'client_mail' => $data['client_mail'],
+            'delivery' => $data['delivery']
+        ]);
     }
 
     private function toRow(array $order) : array{
@@ -34,7 +49,6 @@ final class OrderService {
             'livraison' => $order['livraison'],
             'nom' => $order['nom'],
             'mail' => $order['mail'],
-
         ];
     }
 
