@@ -10,11 +10,11 @@ final class PostOrderAction {
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $params = $request->getParsedBody();
+        $data = $request->getParsedBody();
 
         try {
             $orderService = new OrderService();
-            $order = $orderService->postOrder($params);
+            $order = $orderService->postOrder($data);
         } catch (\OrderExceptionNotFound $e) {
             throw new HttpNotFoundException($rq, $e->getMessage());
         }

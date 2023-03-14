@@ -5,6 +5,8 @@ namespace orders\services\utils;
 use orders\models\Order;
 use orders\errors\exceptions\OrderExceptionNotFound;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 final class OrderService {
 
     public function getOrders(): Array
@@ -13,7 +15,7 @@ final class OrderService {
 
         try {
             return $query->toArray();
-        }catch (\Throwable $e) {
+        }catch (ModelNotFoundException $e) {
             throw new OrderExceptionNotFound("orders not found");
         }
     }
@@ -24,7 +26,7 @@ final class OrderService {
 
         try {
             return $query->firstOrFail()->toArray();
-        }catch (\Throwable $e) {
+        }catch (ModelNotFoundException $e) {
             throw new OrderExceptionNotFound("order $id not found");
         }
     }
@@ -37,6 +39,16 @@ final class OrderService {
     public function postOrder(array $data): Order
     {
         $order = new Order;
+        $order->id = uniqid();
+        $order->nom = $data['client_name'];
+        $order->mail = $data['client_mail'];
+        $order->montant = $data['price'];
+        $order->status = $data['status'];
+        $order->livraison = $data['delivery'];
+
+        $order->save();
+
+        return $order;
     }
 
     private function toRow(array $order): array

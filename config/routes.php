@@ -13,6 +13,6 @@ return function (App $app) {
         $app->get('/orders[/]', \orders\actions\order\GetOrdersAction::class)->setName('getOrders');
         $app->get('/orders/{id}[/]', \orders\actions\order\GetOrderByIdAction::class)->setName('getOrderById');
 
-        $app->post('/orders[/]', \orders\actions\order\PostOrderAction::class)->setName('postOrder');
+        $app->post('/orders[/]', \orders\actions\order\PostOrderAction::class)->setName('postOrder')->add(new \orders\middlewares\ValidatorPostOrderMiddleware(Request::class));;
     });
 };
