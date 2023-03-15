@@ -45,15 +45,6 @@ final class OrderService {
         $order->livraison = $data['delivery'];
         $order->save();
 
-
-        /*
-        $order->update([
-            'nom' => $data['client_name'],
-            'mail' => $data['client_mail'],
-            'livraison' => $data['delivery']
-        ]);
-        */
-
     }
 
     private function toRow(array $order): array

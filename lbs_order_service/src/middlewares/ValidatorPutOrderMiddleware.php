@@ -15,12 +15,8 @@ class ValidatorPutOrderMiddleware
     public function __invoke(
         Request $request,
         RequestHandler $next): Response {
-        /**
-         * [ client_name => name , client_mail => email
-         * delivery => YYYY-MM-DD HH:MM:SS ]
-         */
-        $data = $request->getParsedBody();
 
+        $data = $request->getParsedBody();
 
         try {
             v::key( 'client_name', v::alnum(' ','.'))
