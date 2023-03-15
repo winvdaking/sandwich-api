@@ -3,6 +3,7 @@
 namespace orders\actions\order;
 
 
+use orders\errors\exceptions\OrderExceptionNotFound;
 use orders\services\utils\OrderService;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -19,7 +20,7 @@ class PutOrderByIdAction
 
         try {
             $orderService->orderUpdate($args['id'], $body);
-        }catch ( \ErrorException $e){
+        }catch ( OrderExceptionNotFound $e){
             throw new HttpNotFoundException($request, $e->getMessage());
         }
 

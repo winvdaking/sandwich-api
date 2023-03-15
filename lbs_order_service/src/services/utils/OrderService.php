@@ -34,11 +34,10 @@ final class OrderService {
     public function orderUpdate(string $id,array $data):void{
 
         try {
-            $order = Order::find($id)->firstOrFail();
+            $order = Order::findOrFail($id);
         }catch (ModelNotFoundException $e){
-            throw new OrderExceptionNotFound($e->getMessage());
+            throw new OrderExceptionNotFound("order $id not found");
         }
-
 
         $order->nom = $data['client_name'];
         $order->mail = $data['client_mail'];
