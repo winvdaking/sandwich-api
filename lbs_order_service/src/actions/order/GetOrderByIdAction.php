@@ -3,10 +3,11 @@
 namespace orders\actions\order;
 
 use orders\services\utils\OrderService;
-use orders\errors\OrderExceptionNotFound;
+use orders\errors\exceptions\OrderExceptionNotFound;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Exception\HttpNotFoundException;
 
 final class GetOrderByIdAction{
 
@@ -15,8 +16,8 @@ final class GetOrderByIdAction{
         try {
             $orderService = new OrderService();
             $order = $orderService->getOrdersById($args['id']);
-        } catch (\OrderExceptionNotFound $e) {
-            throw new HttpNotFoundException($rq, $e->getMessage());
+        } catch (OrderExceptionNotFound $e) {
+            throw new HttpNotFoundException($request, $e->getMessage());
         }
 
         $data = [

@@ -4,6 +4,8 @@ namespace orders\services\utils;
 
 use orders\models\Order;
 use orders\errors\exceptions\OrderExceptionNotFound;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -31,9 +33,19 @@ final class OrderService {
         }
     }
 
-    public function orderUpdate(int $id,array $data): void
-    {
-        $query = Order::update();
+    public function orderUpdate(string $id,array $data):void{
+
+        try {
+            $order = Order::findOrFail($id);
+        }catch (ModelNotFoundException $e){
+            throw new OrderExceptionNotFound("order $id not found");
+        }
+
+        $order->nom = $data['client_name'];
+        $order->mail = $data['client_mail'];
+        $order->livraison = $data['delivery'];
+        $order->save();
+
     }
 
     public function postOrder(array $data): Order
