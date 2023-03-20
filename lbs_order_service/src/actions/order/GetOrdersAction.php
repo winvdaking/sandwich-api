@@ -11,18 +11,20 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpNotFoundException;
 
 
-final class GetOrdersAction {
+final class GetOrdersAction
+{
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
 
-        $client = $request->getQueryParams()['c']?? null;
+        $client = $request->getQueryParams()['c'] ?? null;
+        $sort = $request->getQueryParams()['sort'] ?? null;
 
         try {
             $uri = $request->getUri()->getPath();
 
             $orderService = new OrderService();
-            $orders = $orderService->getOrders($client);
+            $orders = $orderService->getOrders($client,$sort);
         } catch (OrderExceptionNotFound $e) {
             throw new HttpNotFoundException($request, $e->getMessage());
         }
@@ -30,10 +32,11 @@ final class GetOrdersAction {
         $orders_data = [];
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
-        foreach ($orders as $order){
+        foreach ($orders as $order) {
             $orders_data[] = ['order' => $order,
-                'links' => ['self' => ['href' => $routeParser->urlFor('getOrderById', ['id'=>$order['id']])
-                ]]]
+                'links' => [
+                    'self' => ['href' => $routeParser->urlFor('getOrderById', ['id' => $order['id']])]
+                ]
             ];
         }
 
