@@ -4,9 +4,8 @@ namespace orders\services\utils;
 
 use orders\models\Order;
 use orders\errors\exceptions\OrderExceptionNotFound;
+use orders\models\Item;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
-
 
 final class OrderService {
 
@@ -21,12 +20,11 @@ final class OrderService {
         }
     }
 
-    public function getOrdersById(string $id, ?string $embed=null)
+    public function getOrdersById(string $id, ?string $embed=null): array
     {
         $query = Order::select('id', 'mail as client_mail','nom as client_name', 'created_at as order_date', 'livraison as delivery_date','montant as total_amount')->where('id', '=', $id);
-        if ($embed ==='items'){
+        if ($embed === 'items'){
             $query = $query->with('items');
-
         }
         try {
             return $query->firstOrFail()->toArray();
@@ -35,8 +33,8 @@ final class OrderService {
         }
     }
 
-    public function orderUpdate(string $id,array $data):void{
-
+    public function orderUpdate(string $id,array $data): void
+    {
         try {
             $order = Order::findOrFail($id);
         }catch (ModelNotFoundException $e){
@@ -47,15 +45,16 @@ final class OrderService {
         $order->mail = $data['client_mail'];
         $order->livraison = $data['delivery'];
         $order->save();
-
     }
-    public function getOrderItems(string $id):array{
+    
+    public function getOrderItems(string $id): array
+    {
         $items = Item::select('id','uri','libelle as name','tarif as price','quantite as quatity')->where('command_id', '=', $id)->get();
-        return $items->ToArray();
+        return $items->toArray();
     }
+
     public function postOrder(array $data): Order
     {
-
         $order = new Order;
         $order->id = uniqid();
         $order->nom = $data['client_name'];

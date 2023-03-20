@@ -7,8 +7,8 @@ class Item extends \Illuminate\Database\Eloquent\Model{
     protected  $primaryKey = 'id';
     public $timestamps = false;
     
-    public function order(){
+    public function order()
+    {
         return $this->belongsTo('orders\models\Order', 'command_id');
-
     }
 }
