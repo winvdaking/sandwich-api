@@ -17,7 +17,6 @@ final class GetOrderByIdAction{
         $embed = $request->getQueryParams()['embed']?? null;
 
         try {
-            echo ('ok');
             $orderService = new OrderService();
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $order = $orderService->getOrdersById($args['id'],$embed);
