@@ -3,6 +3,8 @@
 namespace orders\services\utils;
 
 use orders\models\Order;
+use orders\models\Item;
+
 use orders\errors\exceptions\OrderExceptionNotFound;
 use orders\models\Item;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -11,10 +13,12 @@ final class OrderService {
 
     public function getOrders(?string $client=null): Array
     {
+
         $query = Order::select('id', 'mail as client_mail', 'created_at as order_date', 'montant as total_amount');
 
         if($client)
             $query->where('mail', $client);
+
 
         try {
             return $query->get()->toArray();
@@ -68,8 +72,8 @@ final class OrderService {
 
         try {
             $order->save();
-        } catch (\ModelNotFoundException $e) {
-            throw new OrderNotFoundException("post order not resolvable");
+        } catch (ModelNotFoundException $e) {
+            throw new OrderExceptionNotFound("post order not resolvable");
         }
 
         return $order;
