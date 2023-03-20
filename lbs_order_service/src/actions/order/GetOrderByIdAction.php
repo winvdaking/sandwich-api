@@ -14,10 +14,10 @@ final class GetOrderByIdAction{
 
     public function __invoke(Request $request, Response $response , array $args): Response
     {
-        $embed = $request->getQueryParams()['embed']?? null;
 
         try {
-            echo ('ok');
+            $embed = $request->getQueryParams()['embed']?? null;
+
             $orderService = new OrderService();
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $order = $orderService->getOrdersById($args['id'],$embed);

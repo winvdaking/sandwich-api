@@ -12,7 +12,7 @@ class Order extends \Illuminate\Database\Eloquent\Model{
     protected $fillable = [];
 
     public function items(){
-        return $this->hasMany('orders\models\Item','id');
+        return $this->hasMany('orders\models\Item','command_id');
 
     }
 }
