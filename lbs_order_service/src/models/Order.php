@@ -4,7 +4,7 @@ namespace orders\models;
 class Order extends \Illuminate\Database\Eloquent\Model{
 
     protected  $table = 'commande';
-    protected  $idColumn = 'id';
+    protected string $idColumn = 'id';
     public $timestamps = true;
     protected $keyType = 'string';
     public $incrementing = false;
@@ -12,7 +12,7 @@ class Order extends \Illuminate\Database\Eloquent\Model{
     protected $fillable = [];
 
     public function items(){
-        return $this->hasMany('order\models\Item','id');
+        return $this->hasMany('orders\models\Item','id');
 
     }
 }
