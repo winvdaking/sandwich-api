@@ -9,12 +9,15 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class OrderService {
 
-    public function getOrders(): Array
+    public function getOrders(?string $client=null): Array
     {
-        $query = Order::select('id', 'mail as client_mail', 'created_at as order_date', 'montant as total_amount')->get();
+        $query = Order::select('id', 'mail as client_mail', 'created_at as order_date', 'montant as total_amount');
+
+        if($client)
+            $query->where('mail', $client);
 
         try {
-            return $query->toArray();
+            return $query->get()->toArray();
         }catch (ModelNotFoundException $e) {
             throw new OrderExceptionNotFound("orders not found");
         }
