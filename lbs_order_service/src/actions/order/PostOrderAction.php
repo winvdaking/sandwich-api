@@ -16,7 +16,7 @@ final class PostOrderAction {
             $orderService = new OrderService();
             $order = $orderService->postOrder($data);
         } catch (\OrderExceptionNotFound $e) {
-            throw new HttpNotFoundException($rq, $e->getMessage());
+            throw new HttpNotFoundException($request, $e->getMessage());
         }
 
         $data = [

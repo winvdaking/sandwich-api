@@ -7,7 +7,6 @@ use orders\errors\exceptions\OrderExceptionNotFound;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class OrderService {
 
@@ -22,10 +21,13 @@ final class OrderService {
         }
     }
 
-    public function getOrdersById(string $id)
+    public function getOrdersById(string $id, ?string $embed=null)
     {
         $query = Order::select('id', 'mail as client_mail','nom as client_name', 'created_at as order_date', 'livraison as delivery_date','montant as total_amount')->where('id', '=', $id);
+        if ($embed ==='items'){
+            $query = $query->with('items');
 
+        }
         try {
             return $query->firstOrFail()->toArray();
         }catch (ModelNotFoundException $e) {
@@ -47,7 +49,10 @@ final class OrderService {
         $order->save();
 
     }
-
+    public function getOrderItems(string $id):array{
+        $items = Item::select('id','uri','libelle as name','tarif as price','quantite as quatity')->where('command_id', '=', $id)->get();
+        return $items->ToArray();
+    }
     public function postOrder(array $data): Order
     {
 
