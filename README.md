@@ -54,3 +54,5 @@ sudo docker-compose start
 sudo docker-compose down
 
 sudo docker-compose ps
+
+composer dump-autoload

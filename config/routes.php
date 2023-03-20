@@ -13,6 +13,7 @@ return function (App $app) {
     $app->group('/v1', function (RouteCollectorProxy $app) {
         $app->get('/orders[/]', \orders\actions\order\GetOrdersAction::class)->setName('getOrders');
         $app->get('/orders/{id}[/]', \orders\actions\order\GetOrderByIdAction::class)->setName('getOrderById');
+        $app->post('/orders[/]', \orders\actions\order\PostOrderAction::class)->setName('postOrder')->add(new \orders\middlewares\ValidatorPostOrderMiddleware(Request::class));;
         $app->put('/orders/{id}[/]', \orders\actions\order\PutOrderByIdAction::class)->setName('putOrderById')
             ->add(new ValidatorPutOrderMiddleware(Request::class));
     });
