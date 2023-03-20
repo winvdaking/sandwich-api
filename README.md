@@ -45,7 +45,7 @@ sudo nano /etc/hosts
 
 sudo docker start -ia {nom-docker}
 
-sudo docker-compose exec -it {nom-docker} sh
+sudo docker exec -it {nom-docker} sh
 
 sudo docker-compose up --no-start
 
@@ -54,3 +54,5 @@ sudo docker-compose start
 sudo docker-compose down
 
 sudo docker-compose ps
+
+composer dump-autoload
