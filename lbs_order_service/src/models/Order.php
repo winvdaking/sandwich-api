@@ -1,13 +1,18 @@
 <?php
 namespace order\models;
-class Order extends \Illuminate\Database\Eloquent\Model{
+use Illuminate\Database\Eloquent\Model;
 
-    protected  $table = 'commande';
-    protected  $idColumn = 'id';
+class Order extends Model{
+
+    protected  $table ='commande';
+    protected string  $idColumn = 'id';
     public $timestamps = true;
+    protected $keyType = 'string';
+    public $incrementing = false;
 
-    public function items(){
-        return $this->hasMany('order\models\Item','id');
+    public function items()
+    {
+        return $this->hasMany('order\models\Item','command_id');
 
     }
 
