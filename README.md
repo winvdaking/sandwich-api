@@ -32,6 +32,8 @@ http://api.order.local:19080/
 ### adminer
 http://api.order.local:8080/
 
+http://api.order.local:8080/?server=order.db&username=order_lbs&db=order_lbs
+
 ## Serveur
 order.db
 
