@@ -38,6 +38,7 @@ final class OrderService {
 
     public function postOrder(array $data): Order
     {
+
         $order = new Order;
         $order->id = uniqid();
         $order->nom = $data['client_name'];
@@ -46,7 +47,11 @@ final class OrderService {
         $order->status = $data['status'];
         $order->livraison = $data['delivery'];
 
-        $order->save();
+        try {
+            $order->save();
+        } catch (\ModelNotFoundException $e) {
+            throw new OrderNotFoundException("post order not resolvable");
+        }
 
         return $order;
     }

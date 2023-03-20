@@ -14,10 +14,6 @@ class ValidatorPostOrderMiddleware
 {
     public function __invoke(Request $request, RequestHandler $next): Response
     {
-        /**
-         * [ client_name => name , client_mail => email, price => montant, status => status,
-         * delivery => [ date => "DD-MM-YYYY", time => "HH:MM" ] ]
-         */
         $data = $request->getParsedBody();
 
         $data['delivery'] = date_create($data['delivery']);
