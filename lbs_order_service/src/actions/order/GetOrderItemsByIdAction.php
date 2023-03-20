@@ -7,7 +7,7 @@ use orders\services\utils\OrderService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-final class GetOrderItemsAction
+final class GetOrderItemsByIdAction
 {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
