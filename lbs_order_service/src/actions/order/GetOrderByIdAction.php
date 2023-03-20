@@ -17,6 +17,7 @@ final class GetOrderByIdAction{
         $embed = $request->getQueryParams()['embed']?? null;
 
         try {
+            echo ('ok');
             $orderService = new OrderService();
             $routeParser = RouteContext::fromRequest($request)->getRouteParser();
             $order = $orderService->getOrdersById($args['id'],$embed);
@@ -29,10 +30,10 @@ final class GetOrderByIdAction{
             'order' => $order,
             'links' => [
                 'items' =>[
-                    'href' => $routeParser->urlFor('items', ['id'=>$order['id']])
+                    'href' => $routeParser->urlFor('getOrderItems', ['id'=>$order['id']])
                 ],
                 'self' =>[
-                    'href' => $routeParser->urlFor('order', ['id'=>$order['id']])
+                    'href' => $routeParser->urlFor('getOrderById', ['id'=>$order['id']])
                 ]
             ]
         ];

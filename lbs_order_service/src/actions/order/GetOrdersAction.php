@@ -29,7 +29,7 @@ final class GetOrdersAction {
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
         foreach ($orders as $order){
             $orders_data[] = ['order' => [$order,
-                'links' => ['self' => ['href' => $routeParser->urlFor('order', ['id'=>$order['id']])
+                'links' => ['self' => ['href' => $routeParser->urlFor('getOrderById', ['id'=>$order['id']])
                 ]]]];}
 
 
