@@ -30,7 +30,9 @@ final class OrderService {
 
 
         try {
+
             return $query->get()->toArray();
+
         }catch (ModelNotFoundException $e) {
             throw new OrderExceptionNotFound("orders not found");
         }
