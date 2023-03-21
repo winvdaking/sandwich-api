@@ -67,8 +67,8 @@ final class GetOrdersAction
             'orders' => $orders_data,
             'links' => [
                 'self' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $page])],
-                'next' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $page + 1 >= $lastPage ? $page : $page + 1 ])],
-                'prev' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $page - 1 <= 1 ? $page : $page - 1])],
+                'next' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $page + 1 >= $lastPage ? 1 : $page + 1 ])],
+                'prev' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $page - 1 <= 1 ? $lastPage : $page - 1])],
                 'first' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => 1])],
                 'last' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $lastPage])],
             ]
