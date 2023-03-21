@@ -26,6 +26,9 @@ Dorian
 
 ## url
 
+Cours:
+https://arche.univ-lorraine.fr/course/view.php?id=13845
+
 ### api.order
 http://api.order.local:19080/
 
