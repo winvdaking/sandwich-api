@@ -54,7 +54,8 @@ final class GetOrdersAction
         foreach ($data_pagination as $order) {
             $orders_data[] = ['order' => $order,
                 'links' => [
-                    'self' => ['href' => $routeParser->urlFor('getOrderById', ['id' => $order['id']])]
+                    'self' => ['href' => $routeParser->urlFor('getOrderById', ['id' => $order['id']])],
+                    'items' => ['href' => $routeParser->urlFor('getOrderItemsById', ['id' => $order['id']])]
                 ]
             ];
         }
