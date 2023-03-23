@@ -24,8 +24,6 @@ final class GetOrdersAction
         $page = $request->getQueryParams()['page'] ?? 1;
 
         try {
-            $uri = $request->getUri()->getPath();
-
             $orderService = new OrderService();
             $orders = $orderService->getOrders($client,$sort);
         } catch (OrderExceptionNotFound $e) {
