@@ -60,7 +60,6 @@ final class GetOrdersAction
             ];
         }
 
-
         $data = [
             'type' => 'collection',
             'count' => $count,
@@ -74,10 +73,6 @@ final class GetOrdersAction
                 'last' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $lastPage])],
             ]
         ];
-
-
-
-
 
         $response = $response->withHeader('Content-type', 'application/json;charset=utf-8')->withStatus(202);
         $response->getBody()->write(json_encode($data));
