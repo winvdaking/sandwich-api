@@ -65,42 +65,51 @@ services:
 ###  api api.auth : auth, check, refresh de token JWT
 ###  utilise sa propre base de données
 ######################################
-#  api.auth:
-#    image: 'canals/php:latest'
-#    environment:
-#      - VHOST_HOSTNAME=api.auth.local
-#      - VHOST_DOCROOT=/var/www/pub
-#    ports:
-#      - '19780:80'
-#      - '19743:443'
-#    volumes:
-#      - './lbs_auth_service/public:/var/www/pub'
-#      - './lbs_auth_service/src:/var/www/src'
-#      - './lbs_auth_service/log:/var/log/app'
-#    working_dir: /var/www/src
-#    networks:
-#      lbs.net:
-#        aliases:
-#          - api.auth.local
-#    depends_on:
-#      - mysql.auth
+  api.auth:
+    image: 'canals/php:latest'
+    environment:
+      - VHOST_HOSTNAME=api.auth.local
+      - VHOST_DOCROOT=/var/www/public/
+    ports:
+      - '19780:80'
+      - '19743:443'
+    volumes:
+      - './lbs_auth_service/public:/var/www/public'
+      - './lbs_auth_service/config:/var/www/config'
+      - './lbs_auth_service/src:/var/www/src'
+      - './lbs_auth_service/vendor:/var/www/vendor'
+    working_dir: /var/www/
+    networks:
+      - lbs23.net
+    depends_on:
+      - mongo.auth
 
-#  mysql.auth:
-#    image: 'mariadb:latest'
-#    command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=authR00t
-#      - MYSQL_USER=auth_lbs
-#      - MYSQL_PASSWORD=auth_lbs
-#      - MYSQL_DATABASE=auth_lbs
-#    ports:
-#      - '3316:3306'
-#    networks:
-#      - lbs.net
-#    volumes:
-#      - './lbs_auth_service/sql:/var/sql'
+  mongo.auth:
+    image: 'mongo:latest'
+    environment:
+      - MONGO_INITDB_ROOT_PASSWORD=authR00t
+      - MONGO_INITDB_ROOT_USERNAME=auth_lbs
+      - MONGO_INITDB_DATABASE=auth_lbs
+    ports:
+    - '27017:27017'
+    networks:
+      - lbs23.net
+    volumes:
+      - './lbs_auth_service/mongoData:/var/data'
+    working_dir: /var/data
+    restart: always
 
-
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    networks:
+    - lbs23.net
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root
+      ME_CONFIG_MONGODB_URL: mongodb://auth_lbs:authR00t@mongo.auth:27017/
 
 
 ###########################################################
@@ -172,3 +181,27 @@ services:
 #    depends_on:
 #      - api.catalogue
 #
+
+#######################################
+###  frontoffice
+###  connexion avec l'api catalogue
+#######################################
+  api.frontoffice:
+    image: 'canals/php:latest'
+    environment:
+      - VHOST_HOSTNAME=api.frontoffice.local
+      - VHOST_DOCROOT=/var/www/public
+    ports:
+      - '19480:80'
+      - '19443:443'
+    volumes:
+      - './lbs_frontoffice_service/public:/var/www/public'
+      - './lbs_frontoffice_service/src:/var/www/src'
+      - './lbs_frontoffice_service/config:/var/www/config'
+      - './lbs_frontoffice_service/vendor:/var/www/vendor'
+    working_dir: /var/www/src
+    networks:
+      - lbs23.net
+    depends_on:
+      - api.auth
+      - api.order

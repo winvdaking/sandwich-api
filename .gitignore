@@ -2,3 +2,11 @@
 /vendor
 /config/config.db.ini
 /.idea
+/lbs_auth_service/vendor
+/lbs_auth_service/config/config.php
+/lbs_auth_service/config/config.db.ini
+/lbs_frontoffice_service/vendor
+/lbs_frontoffice_service/config/config.php
+/lbs_frontoffice_service/config/config.db.ini
+
+.DS_Store
