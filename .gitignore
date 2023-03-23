@@ -8,3 +8,5 @@
 /lbs_frontoffice_service/vendor
 /lbs_frontoffice_service/config/config.php
 /lbs_frontoffice_service/config/config.db.ini
+
+.DS_Store
