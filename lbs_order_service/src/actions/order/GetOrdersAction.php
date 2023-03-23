@@ -51,7 +51,9 @@ final class GetOrdersAction
         $orders_data = [];
         $routeParser = RouteContext::fromRequest($request)->getRouteParser();
 
+        $size = 0;
         foreach ($data_pagination as $order) {
+            $size++;
             $orders_data[] = ['order' => $order,
                 'links' => [
                     'self' => ['href' => $routeParser->urlFor('getOrderById', ['id' => $order['id']])],
@@ -64,7 +66,7 @@ final class GetOrdersAction
         $data = [
             'type' => 'collection',
             'count' => $count,
-            'size' => self::PAGE_SIZE,
+            'size' => $size,
             'orders' => $orders_data,
             'links' => [
                 'self' => ['href' => $routeParser->urlFor('getOrders',[], ['page' => $page])],
