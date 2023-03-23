@@ -16,8 +16,6 @@ final class GetOrdersAction {
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         try {
-            $uri = $request->getUri()->getPath();
-
             $orderService = new OrderService();
             $orders = $orderService->getOrders();
 

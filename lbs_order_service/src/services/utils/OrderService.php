@@ -6,7 +6,6 @@ use orders\models\Order;
 use orders\models\Item;
 
 use orders\errors\exceptions\OrderExceptionNotFound;
-use orders\models\Item;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 final class OrderService {
