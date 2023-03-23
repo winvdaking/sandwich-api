@@ -1,0 +1,16 @@
+{
+    "require": {
+        "slim/slim": "^4.11",
+        "mongodb/mongodb": "^1.15",
+        "firebase/php-jwt": "^6.4",
+        "slim/psr7": "^1.6",
+        "php-di/php-di": "^7.0",
+        "php-di/slim-bridge": "^3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "auth\\": "src/",
+            "config\\": "config/"
+        }
+    }
+}
