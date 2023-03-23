@@ -119,42 +119,42 @@ services:
 #
 ###########################################################
 
-#  catalogue.data:
-#    image: postgis/postgis:13-master
-#    volumes:
-#      - ./lbs_catalogue_service/data/database:/var/lib/postgresql/data
-#    networks:
-#      - lbs.net
-#    environment:
-#      POSTGRES_USER: 'catalogue'
-#      POSTGRES_PASSWORD: 'catalogue'
-#      POSTGRES_DB: 'catalogue'
-#
-#  api.catalogue:
-#    image: directus/directus:latest
-#    ports:
-#      - 19055:8055
-#    volumes:
-#      - ./lbs_catalogue_service/uploads:/directus/uploads
-#      - ./lbs_catalogue_service/extensions:/directus/extensions
-#    networks:
-#      - lbs.net
-#    depends_on:
-#      - catalogue.data
-#    environment:
-#      KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
-#      SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
-#
-#      DB_CLIENT: 'pg'
-#      DB_HOST: 'catalogue.data'
-#      DB_PORT: '5432'
-#      DB_DATABASE: 'catalogue'
-#      DB_USER: 'catalogue'
-#      DB_PASSWORD: 'catalogue'
-#
-#      CACHE_ENABLED: 'false'
-#      ADMIN_EMAIL: 'admin@example.com'
-#      ADMIN_PASSWORD: 'd1r3ctu5'
+  catalogue.data:
+    image: postgis/postgis:13-master
+    volumes:
+      - ./lbs_catalogue_service/data/database:/var/lib/postgresql/data
+    networks:
+      - lbs23.net
+    environment:
+      POSTGRES_USER: 'catalogue'
+      POSTGRES_PASSWORD: 'catalogue'
+      POSTGRES_DB: 'catalogue'
+
+  api.catalogue:
+    image: directus/directus:latest
+    ports:
+      - 19055:8055
+    volumes:
+      - ./lbs_catalogue_service/uploads:/directus/uploads
+      - ./lbs_catalogue_service/extensions:/directus/extensions
+    networks:
+      - lbs23.net
+    depends_on:
+      - catalogue.data
+    environment:
+      KEY: '255d861b-5ea1-5996-9aa3-922530ec40b1'
+      SECRET: '6116487b-cda1-52c2-b5b5-c8022c45e263'
+
+      DB_CLIENT: 'pg'
+      DB_HOST: 'catalogue.data'
+      DB_PORT: '5432'
+      DB_DATABASE: 'catalogue'
+      DB_USER: 'catalogue'
+      DB_PASSWORD: 'catalogue'
+
+      CACHE_ENABLED: 'false'
+      ADMIN_EMAIL: 'admin@example.com'
+      ADMIN_PASSWORD: 'd1r3ctu5'
 
 
 
