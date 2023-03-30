@@ -6,7 +6,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Slim\Factory\AppFactory;
 
-$config = parse_ini_file('config.db.ini');
+$config = parse_ini_file(__DIR__ . '/config.db.ini');
 
 $db = new \Illuminate\Database\Capsule\Manager();
 $db->addConnection($config);

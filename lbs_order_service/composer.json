@@ -16,7 +16,7 @@
     "autoload": {
         "psr-4": {
             "config\\": "config/",
-            "orders\\": "lbs_order_service/src/"
+            "orders\\": "src/"
         }
     }
 }

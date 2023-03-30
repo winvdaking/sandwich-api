@@ -20,12 +20,15 @@ services:
     image: 'canals/php:latest'
     environment:
       - VHOST_HOSTNAME=api.order.local
-      - VHOST_DOCROOT=/var/www/
+      - VHOST_DOCROOT=/var/www/public/
     ports:
       - '19080:80'
       - '19043:443'
     volumes:
-      - '.:/var/www'
+      - './lbs_order_service/public:/var/www/public'
+      - './lbs_order_service/config:/var/www/config'
+      - './lbs_order_service/src:/var/www/src'
+      - './lbs_order_service/vendor:/var/www/vendor'
     working_dir: /var/www/
     networks:
       - lbs23.net
@@ -47,7 +50,7 @@ services:
     networks:
       - lbs23.net
     volumes:
-      - './sql:/var/sql'
+      - './lbs_order_service/sql:/var/sql'
 
   #
   # service administration des bases sql
@@ -106,6 +109,8 @@ services:
       - 8081:8081
     networks:
     - lbs23.net
+    depends_on:
+      - mongo.auth
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: root

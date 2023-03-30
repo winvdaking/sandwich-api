@@ -48,16 +48,14 @@ sudo nano /etc/hosts
 
 ## CLI:
 
-sudo docker start -ia {nom-docker}
+docker start -ia {nom-docker}
 
-sudo docker exec -it {nom-docker} sh
+docker exec -it {nom-docker} sh
 
-sudo docker-compose up --no-start
+docker-compose up -d
 
-sudo docker-compose start
+docker-compose down
 
-sudo docker-compose down
-
-sudo docker-compose ps
+docker-compose ps
 
 composer dump-autoload
